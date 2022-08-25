@@ -1,0 +1,50 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flash & Debug",
+            "cwd": "${workspaceFolder}",
+            "servertype": "jlink",
+            "request": "launch",
+            "device": "nrf52",
+            "type": "cortex-debug",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/src/external/nRF5/nRF5_SDK_17.1.0_ddde560/modules/nrfx/mdk/nrf52840.svd",
+            "preLaunchTask": "flash_debug_hex",
+            "executable": "${workspaceFolder}/.build/debug.elf",
+            "rttConfig": {
+                "enabled": true,
+                "address": "auto",
+                "decoders": [
+                    {
+                        "label": "RTT Console",
+                        "port": 0,
+                        "type": "console"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Debug",
+            "cwd": "${workspaceFolder}",
+            "servertype": "jlink",
+            "request": "attach",
+            "device": "nrf52",
+            "type": "cortex-debug",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/src/external/nRF5/nRF5_SDK_17.1.0_ddde560/modules/nrfx/mdk/nrf52840.svd",
+            "executable": "${workspaceFolder}/.build/debug.elf",
+            "rttConfig": {
+                "enabled": true,
+                "address": "auto",
+                "decoders": [
+                    {
+                        "label": "RTT Console",
+                        "port": 0,
+                        "type": "console"
+                    }
+                ]
+            }
+        }
+    ]
+}

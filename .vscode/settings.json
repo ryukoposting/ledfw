@@ -1,0 +1,32 @@
+{
+    "files.associations": {
+        "*.h": "c",
+        "Makefile.*": "makefile",
+        "*.def": "cpp",
+        "*.mk": "makefile",
+        "optional": "cpp",
+        "ostream": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "random": "cpp",
+        "iosfwd": "cpp",
+        "limits": "cpp",
+        "streambuf": "cpp"
+    },
+    "task.autoDetect": "off",
+    "jake.autoDetect": "off",
+    "gulp.autoDetect": "off",
+    "grunt.autoDetect": "off",
+    "npm.autoDetect": "off",
+    "git.ignoreLimitWarning": true,
+    "cortex-debug.variableUseNaturalFormat": false
+}

@@ -1,0 +1,7 @@
+cpp:
+  - src/main.cc
+  - src/led0.cc
+  - src/dmx.cc
+
+includes:
+  - include

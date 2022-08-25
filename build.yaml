@@ -1,0 +1,142 @@
+# each folder containing a component.yaml file should go here:
+components:
+  - src/external/nRF5
+  - src/app
+  - src/lib
+
+# define each available build mode:
+modes:
+  - debug
+  - release
+
+defines: &defines
+  - PRODUCT_PREFIX=LT
+  - MAX_LEDS_PER_THREAD=256
+  - MAX_SUBSCRIBED_DMX_CHANNELS=16
+  - DEFAULT_REFRESH_RATE_MSEC=25
+  - MINIMUM_REFRESH_RATE_MSEC=16
+  - MAXIMUM_REFRESH_RATE_MSEC=1000
+  - MAX_LED_CHANNELS=1
+  - BLE_MANUF_ID=0xFFFF
+  - MAX_USER_APP_NAME_LEN=32
+  - MAX_USER_APP_PROVIDER_LEN=32
+  - NRF52840_XXAA
+  - FLOAT_ABI_HARD
+  - S140
+  - FREERTOS
+  - BOARD_PCA10056
+  - NRF_SD_BLE_API_VERSION=6
+  - SOFTDEVICE_PRESENT
+  - SWI_DISABLE0
+  - BLE_STACK_SUPPORT_REQD
+  - NRF_DFU_SVCI_ENABLED
+  - NRF_DFU_TRANSPORT_BLE=1
+  - NRF_LOG_BACKEND_RTT_ENABLED=1
+  - CONFIG_GPIO_AS_PINRESET
+  - asm=__asm
+  - M_PI=3.14159265358979323846
+  - BASE_ERROR_NUMBER=0x100000
+
+nrf52840-flags: &nrf52840-flags
+  - mcpu=cortex-m4
+  - mthumb
+  - mabi=aapcs
+  - mfloat-abi=hard
+  - mfpu=fpv4-sp-d16
+
+flags: &flags
+  - *nrf52840-flags
+  # - Werror
+  - Wall
+  - Wextra
+  - Wno-unused-value
+  - Wno-unused-parameter
+  - Wno-unused-label
+  - Wno-expansion-to-defined
+  - Wno-switch
+  - Wno-missing-field-initializers
+  - Wimplicit-fallthrough=2
+  - fno-strict-aliasing
+  - fdata-sections
+  - ffunction-sections
+  - fno-builtin
+  - fshort-enums
+  - fomit-frame-pointer
+
+debug: &debug
+  flags:
+    - O0
+    - ggdb
+  defines:
+    - DEBUG
+    - DEBUG_NRF
+
+release: &release
+  flags:
+    - O2
+  defines:
+    - RELEASE
+    - NDEBUG
+
+build:
+  c:
+    compiler: arm-none-eabi-gcc
+    defines: *defines
+    debug: *debug
+    release: *release
+    flags:
+      - *flags
+      - std=c17
+  cpp:
+    compiler: arm-none-eabi-g++
+    defines: *defines
+    debug: *debug
+    release: *release
+    flags:
+      - *flags
+      - std=c++17
+      - fno-exceptions
+      - fno-rtti
+      - fno-threadsafe-statics
+      - Wno-volatile
+
+  asm:
+    compiler: arm-none-eabi-gcc
+    defines: *defines
+    debug: *debug
+    release: *release
+    flags:
+      - *flags
+      - x assembler-with-cpp
+
+linker:
+  ld: arm-none-eabi-gcc
+  objcopy: arm-none-eabi-objcopy
+  nrfutil: nrfutil
+  script: misc/app.ld
+  flags:
+    - *nrf52840-flags
+    - Wl,--gc-sections
+    - Wl,--build-id
+    - -specs=nano.specs
+    - lm
+    - lc
+    - lstdc++
+    - lnosys
+    - Lsrc/external/nRF5/nRF5_SDK_17.1.0_ddde560/modules/nrfx/mdk
+  debug:
+    flags:
+      - Wl,-Map=.build/debug.map
+  release:
+    flags:
+      - Wl,-Map=.build/release.map
+
+dfu:
+  key-file: misc/private.key
+  sd-req: '0x100'  # s140_nrf52_7.2.0
+  application-version: 1
+
+flash:
+  nrfjprog: nrfjprog
+  softdevice: src/external/nRF5/nRF5_SDK_17.1.0_ddde560/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex
+  bootloader: misc/secure_bootloader_ble_s140_pca10056.hex

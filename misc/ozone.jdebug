@@ -1,0 +1,69 @@
+void OnProjectLoad (void) {
+  Edit.SysVar (VAR_RTT_ENABLED, 1);
+  Project.AddRootPath("C:/Users/EvanGrove/Sketches/fwcom");
+
+  Project.SetDevice ("nRF52840_xxAA");
+  Project.SetHostIF ("USB", "");
+  Project.SetTargetIF ("SWD");
+  Project.SetTIFSpeed ("4 MHz");
+  Project.AddSvdFile ("$(InstallDir)/Config/CPU/Cortex-M4F.svd");
+  Project.AddSvdFile ("src/external/nRF5/nRF5_SDK_17.1.0_ddde560/modules/nrfx/mdk/nrf52840.svd");
+  Project.SetRTT(1);
+  File.Open(".debug/debug.elf");
+}
+
+void TargetDownload (void) {
+  Target.LoadMemory("src/external/nRF5/nRF5_SDK_17.1.0_ddde560/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex", 0x00000);
+  Target.LoadMemory("misc/secure_bootloader_ble_s140_pca10056.hex", 0xF8000);
+  Target.LoadMemory(".build/debug.hex", 0x26000);
+  Target.LoadMemory(".build/debug-settings.hex", 0xFE000);
+}
+
+void AfterTargetReset (void) {
+  unsigned int SP;
+  unsigned int PC;
+  unsigned int VectorTableAddr;
+                                                                  
+  VectorTableAddr = 0x00000000;
+                                                                  
+  if (VectorTableAddr != 0xFFFFFFFF) {
+    SP = Target.ReadU32(VectorTableAddr);
+    Target.SetReg("SP", SP);
+  } else {
+    Util.Log("Project file error: failed to get program base");
+  }
+                                                                  
+  PC = Target.ReadU32(VectorTableAddr + 4);
+                                                                  
+  if (PC != 0xFFFFFFFF) {
+    Target.SetReg("PC", PC);
+  } else if (VectorTableAddr != 0xFFFFFFFF) {
+    PC = Target.ReadU32(VectorTableAddr + 4);
+    Target.SetReg("PC", PC);
+  }
+}
+
+void AfterTargetDownload (void) {
+  unsigned int SP;
+  unsigned int PC;
+  unsigned int VectorTableAddr;
+                                                                  
+  VectorTableAddr = 0x00000000;
+                                                                  
+  if (VectorTableAddr != 0xFFFFFFFF) {
+    SP = Target.ReadU32(VectorTableAddr);
+    Target.SetReg("SP", SP);
+  } else {
+    Util.Log("Project file error: failed to get program base");
+  }
+                                                                  
+  PC = Target.ReadU32(VectorTableAddr + 4);
+                                                                  
+  if (PC != 0xFFFFFFFF) {
+    Target.SetReg("PC", PC);
+  } else if (VectorTableAddr != 0xFFFFFFFF) {
+    PC = Target.ReadU32(VectorTableAddr + 4);
+    Target.SetReg("PC", PC);
+  }
+}
+
