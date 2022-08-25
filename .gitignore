@@ -3,3 +3,6 @@
 **/private.key
 .cortex-debug.*
 **/target
+**.exe
+**.elf
+**.lock
