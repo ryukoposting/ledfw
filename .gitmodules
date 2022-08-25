@@ -4,3 +4,6 @@
 [submodule "tools/userapputil"]
 	path = tools/userapputil
 	url = ../userapp-util.git
+[submodule "src/lib"]
+	path = src/lib
+	url = ../lib-ledfw.git
