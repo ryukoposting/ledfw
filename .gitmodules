@@ -7,3 +7,6 @@
 [submodule "src/lib"]
 	path = src/lib
 	url = ../lib-ledfw.git
+[submodule "src/external/nRF5"]
+	path = src/external/nRF5
+	url = ../external-nrf5-sdk.git
