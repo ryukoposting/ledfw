@@ -1,0 +1,7 @@
+[submodule "userapp-workspace"]
+    path = "userapp_env/workspace"
+    url = ../userapp-workspace.git
+
+[submodule "userapputil"]
+    path = "tools/userapputil"
+    url = ../userapp-util.git
