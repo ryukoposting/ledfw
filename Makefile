@@ -118,7 +118,7 @@ release: $(RELEASE_ELF) $(RELEASE_HEX) $(RELEASE_SETTINGS_HEX) $(RELEASE_DFU)
 
 $(DEBUG_ELF): $(DEBUG_O) $(LDSCRIPT)
 	$(info Linking: $@)
-	@$(LD) $(LDFLAGS) -T$(LDSCRIPT) $(DEBUG_O) $(DEBUG_LDFLAGS) -o $@
+	@$(LD) $(LDFLAGS) -T$(LDSCRIPT) $(DEBUG_O) $(DEBUG_LDFLAGS) $(LD_LIBS) -o $@
 
 $(DEBUG_HEX): $(DEBUG_ELF)
 	$(info Generating: $@)

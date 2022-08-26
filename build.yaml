@@ -20,6 +20,7 @@ defines: &defines
   - BLE_MANUF_ID=0xFFFF
   - MAX_USER_APP_NAME_LEN=32
   - MAX_USER_APP_PROVIDER_LEN=32
+  - USE_LESC=0
   - NRF52840_XXAA
   - FLOAT_ABI_HARD
   - S140
@@ -124,6 +125,9 @@ linker:
     - lstdc++
     - lnosys
     - Lsrc/external/nRF5/nRF5_SDK_17.1.0_ddde560/modules/nrfx/mdk
+    - Lsrc/external/nRF5/nRF5_SDK_17.1.0_ddde560/external/nrf_cc310/lib/cortex-m4/hard-float
+  libraries:
+    - nrf_cc310_0.9.13
   debug:
     flags:
       - Wl,-Map=.build/debug.map

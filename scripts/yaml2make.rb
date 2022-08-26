@@ -75,6 +75,11 @@ out.puts ""
 ldscript = yaml['linker']['script']
 out.puts "LDSCRIPT:=#{ldscript}"
 
+libraries = yaml['linker']['libraries'].flatten.map { |lib| "-l#{lib}\\" }
+out.puts "LD_LIBS:=\\"
+out.puts libraries
+out.puts ""
+
 yaml['modes'].each do |mode|
     upmode = mode.upcase.gsub(/[ -]+/, '_')
 
