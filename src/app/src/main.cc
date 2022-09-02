@@ -66,7 +66,7 @@ int main()
 
 
     /* BLE setup: advertising, services */
-    ret = ble::init_thread(false);
+    ret = ble::init_thread(false);  // TODO: button for bond erase
     APP_ERROR_CHECK(ret);
 
     ret = ble::init();
@@ -78,11 +78,14 @@ int main()
     ret = userapp::service().init();
     APP_ERROR_CHECK(ret);
 
-    /* launch tasks for each LED channel */
-    launch_led0();
+    static const char adv_text[] = "hello";
+    ble::set_advertising_data((void const*)adv_text, sizeof(adv_text)-1);
 
     /* launch DMX task */
-    launch_dmx();
+    auto dmx_thread = launch_dmx();
+
+    /* launch tasks for each LED channel */
+    launch_led0(dmx_thread);
 
     vTaskStartScheduler();
 

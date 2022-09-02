@@ -10,6 +10,7 @@
 #include "meta.hh"
 #include "task.hh"
 #include "time.hh"
+#include "dmx.hh"
 #include "userapp.hh"
 
 #ifdef __cplusplus
@@ -18,9 +19,9 @@ extern "C" {
 
 int main(void);
 
-void launch_led0(void);
+dmx::thread *launch_dmx(void);
 
-void launch_dmx(void);
+led::thread *launch_led0(dmx::thread *dmx_thread);
 
 #ifdef __cplusplus
 }
