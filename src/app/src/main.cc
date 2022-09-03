@@ -78,6 +78,9 @@ int main()
     ret = userapp::service().init();
     APP_ERROR_CHECK(ret);
 
+    ret = dfu::init_ble_service();
+    APP_ERROR_CHECK(ret);
+
     static const char adv_text[] = "hello";
     ble::set_advertising_data((void const*)adv_text, sizeof(adv_text)-1);
 
