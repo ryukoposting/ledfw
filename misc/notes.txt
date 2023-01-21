@@ -1,0 +1,78 @@
+GATT service IDs of interest:
+    0x180F      Battery
+
+GATT characteristic IDs of interest:
+    0x2A24      Model Number (under 0x180A / DIS service)
+    0x2A26      Firmware Revision (under 0x180A / DIS service)
+    0x2A27      Hardware Revision (under 0x180A / DIS service)
+    0x2AB5      Location Name
+
+
+roadmap:
+- motherboard & nrf board design
+
+
+- "back" designs:
+    - Beginner back
+        - no DMX
+        - big battery
+        - wall wart power supply
+    - DJ back
+        - 3-pin DMX, no RDM
+        - big battery
+        - wall wart power supply
+    - Pro back
+        - 5-pin DMX + RDM
+        - no battery
+        - some kind of professional power supply
+
+
+
+https://www.amazon.com/CO-Z-DMX-Controller-Lighting-Moving/dp/B01N1UI8V7/ref=sr_1_58?keywords=DMX+Controller+for+DJ+Lights&qid=1662135275&refinements=p_76%3A1249167011&rnid=1249165011&rps=1&s=musical-instruments&sr=1-58
+
+- 250kbit
+
+- MAX485 used in examples with arduino
+
+https://brainstormtech.in/how-to-build-dmx512-fixture-using-arduino-nano/
+
+https://www.amazon.com/CHAUVET-DJ-Obey3-Controller-Controllers/dp/B003MOO3YK/ref=sr_1_13?keywords=dmx+light+controller&qid=1660850225&sr=8-13
+
+https://brainstormtech.in/how-to-build-dmx512-fixture-using-arduino-nano/
+
+https://cdn.sparkfun.com/assets/5/f/8/7/7/Schematic-19452-MIKROE_DMX_Click.pdf
+
+PIC18F__K42 uC's have built-in DMX support
+
+
+
+3.3v logic level RS-485 transciever, DIP-8 package:
+https://www.digikey.com/en/products/detail/texas-instruments/SN65HVD12P/513465
+
+ADM3072E - rs-485 driver with 3.3V logic levels, high ESD safety, high impedance
+
+
+
+RS-585 circuit with opto isolation
+https://www.electroschematics.com/wp-content/uploads/2018/12/6-DMX-Shield-v1-Schematic.png?fit=1025%2C552
+https://www.analog.com/en/analog-dialogue/articles/isolated-rs-485-in-dmx512-lighting.html
+
+
+
+
+[00:02:30.041,992] <error> hardfault: HARD FAULT at 0x0004DFBA
+[00:02:30.041,992] <error> hardfault:   R0:  0x00000000  R1:  0x20040000  R2:  0x4001BC04  R3:  0x00035E7B
+[00:02:30.041,992] <error> hardfault:   R12: 0xA5A5A5A5  LR:  0x0003AF31  PSR: 0x81000000
+
+3af31 - prvCopyDataToQueue?
+4dfba - memcpy?
+
+
+
+
+
+[00:01:23.875,000] <error> hardfault: HARD FAULT at 0x0004DED2
+[00:01:23.875,000] <error> hardfault:   R0:  0x3DA0A0A1  R1:  0x2000A185  R2:  0x20056D20  R3:  0x3DA0A0A1
+[00:01:23.875,000] <error> hardfault:   R12: 0x0000001E  LR:  0x0003AF31  PSR: 0x81000000
+[00:01:23.875,000] <error> hardfault: Cause: Data bus error (return address in the stack frame is not related to the instruction that caused the error).
+
