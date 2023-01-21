@@ -1,12 +1,12 @@
 [submodule "userapp_env/workspace"]
 	path = userapp_env/workspace
-	url = ../userapp-workspace.git
+	url = ../ledfw-userapp-workspace.git
 [submodule "tools/userapputil"]
 	path = tools/userapputil
-	url = ../userapp-util.git
+	url = ../ledfw-userapp-util.git
 [submodule "src/lib"]
 	path = src/lib
-	url = ../lib-ledfw.git
+	url = ../ledfw-lib.git
 [submodule "src/external/nRF5"]
 	path = src/external/nRF5
-	url = ../external-nrf5-sdk.git
+	url = ../ledfw-external-nrf5-sdk.git
